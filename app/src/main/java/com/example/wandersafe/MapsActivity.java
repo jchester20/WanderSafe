@@ -154,7 +154,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             this, R.raw.style_json));
 
             if (!success) {
-
+                // handle error
             }
         } catch (Resources.NotFoundException e) {
             Log.e("Error: ", e.toString());
