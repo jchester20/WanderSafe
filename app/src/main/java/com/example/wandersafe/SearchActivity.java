@@ -50,27 +50,6 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
-//        TextView textView = (TextView) findViewById(R.id.textViewSF);
-//
-//        textView.setOnClickListener(new View.OnClickListener()
-//        {
-//            public void onClick(View v)
-//            {
-//                int[] location = new int[2];
-//                currentRowId = position;
-//                currentRow = v;
-//                // Get the x, y location and store it in the location[] array
-//                // location[0] = x, location[1] = y.
-//                v.getLocationOnScreen(location);
-//
-//                //Initialize the Point with x, and y positions
-//                point = new Point();
-//                point.x = location[0];
-//                point.y = location[1];
-//                showStatusPopup(TasksListActivity.this, point);
-//            }
-//        });
-
     }
 
     public void showPopup(View v) {
