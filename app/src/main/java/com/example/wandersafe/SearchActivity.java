@@ -52,6 +52,20 @@ public class SearchActivity extends AppCompatActivity {
 
     }
 
+    public void overview(View v) {
+        Intent myIntentTwo = new Intent(SearchActivity.this, ReviewActivity.class);
+        SearchActivity.this.startActivity(myIntentTwo);
+    }
+
+    public void mapView(View v) {
+        Intent myIntent = new Intent(SearchActivity.this, MapsActivity.class);
+        SearchActivity.this.startActivity(myIntent);
+    }
+
+    public void cancel(View v) {
+        //popup.dismiss();
+    }
+
     public void showPopup(View v) {
         // inflate the layout of the popup window
         LayoutInflater inflater = (LayoutInflater)
@@ -68,32 +82,46 @@ public class SearchActivity extends AppCompatActivity {
         popupWindow.showAtLocation(v, Gravity.BOTTOM, 0, 0);
 
         // dismiss the popup window when touched
-        popupView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                TextView mapTextView = (TextView) findViewById(R.id.popupMapView);
-                mapTextView.setOnClickListener(new View.OnClickListener() {
-                    public void onClick(View v) {
-                        // go back to map view
-                        popupWindow.dismiss();
-                        Intent myIntent = new Intent(SearchActivity.this, MapsActivity.class);
-                        SearchActivity.this.startActivity(myIntent);
-
-                    }
-                });
-
-                TextView overviewTextView = (TextView) findViewById(R.id.popupOverview);
-                // TODO: add connection to Yalini's overview page
-                overviewTextView.setOnClickListener(new View.OnClickListener() {
-                    public void onClick(View v) {
-                        // go back to map view
-                        popupWindow.dismiss();
-                        // TODO: add intent to go to overview activity
-
-                    }
-                });
-                return true;
-            }
-        });
+//        popupView.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                switch (v.getId()) {
+//                    case (R.id.popupMapView):
+//                        Intent myIntent = new Intent(SearchActivity.this, MapsActivity.class);
+//                        SearchActivity.this.startActivity(myIntent);
+//                        break;
+//                    case (R.id.popupOverview):
+//                        Intent myIntentTwo = new Intent(SearchActivity.this, ReviewActivity.class);
+//                        SearchActivity.this.startActivity(myIntentTwo);
+//                        break;
+//                    case (R.id.popupCancel):
+//                        popup.dismiss();
+//                        break;
+//                }
+////                TextView mapTextView = (TextView) findViewById(R.id.popupMapView);
+////                mapTextView.setOnClickListener(new View.OnClickListener() {
+////                    public void onClick(View v) {
+////                        // go back to map view
+//////                        popupWindow.dismiss();
+////                        Intent myIntent = new Intent(SearchActivity.this, MapsActivity.class);
+////                        SearchActivity.this.startActivity(myIntent);
+////
+////                    }
+////                });
+////
+////                TextView overviewTextView = (TextView) findViewById(R.id.popupOverview);
+////                // TODO: add connection to Yalini's overview page
+////                overviewTextView.setOnClickListener(new View.OnClickListener() {
+////                    public void onClick(View v) {
+////                        // go back to map view
+//////                        popupWindow.dismiss();
+////                        Intent myIntent = new Intent(SearchActivity.this, ReviewActivity.class);
+////                        SearchActivity.this.startActivity(myIntent);
+////
+////                    }
+////                });
+//                return true;
+//            }
+//        });
     }
 }
