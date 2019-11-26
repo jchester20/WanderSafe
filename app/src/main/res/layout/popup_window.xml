@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/searchPopUp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/popup_box"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/popupOverview"
+        android:layout_width="380dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Overview"
+        android:layout_weight="1.0"
+        android:gravity="center_vertical"
+        android:textColor="@color/colorMediumBlue"
+        android:width="350dp"
+        android:textAlignment="center"
+        android:padding="10dp"
+        android:textSize="20dp"
+        />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:id="@+id/separator2"
+        android:visibility="visible"
+        android:background="@android:color/darker_gray"/>
+
+    <TextView
+        android:id="@+id/popupMapView"
+        android:layout_width="380dp"
+        android:layout_height="wrap_content"
+        android:text="Go to map view"
+        android:layout_weight="1.0"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_vertical"
+        android:clickable="true"
+        android:onClick="popupSortOnClick"
+        android:textColor="@color/colorMediumBlue"
+        android:width="350dp"
+        android:textAlignment="center"
+        android:padding="10dp"
+        android:theme="@style/SearchViewTheme"
+        android:textSize="20dp"
+        />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:id="@+id/separator3"
+        android:visibility="visible"
+        android:background="@android:color/darker_gray"/>
+
+    <TextView
+        android:id="@+id/popupFavorites"
+        android:layout_width="380dp"
+        android:layout_height="wrap_content"
+        android:text="Add to favorites"
+        android:layout_weight="1.0"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_vertical"
+        android:clickable="true"
+        android:onClick="popupSortOnClick"
+        android:textColor="@color/colorMediumBlue"
+        android:width="350dp"
+        android:textAlignment="center"
+        android:padding="10dp"
+        android:textSize="20dp"
+        />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:id="@+id/separator5"
+        android:visibility="visible"
+        android:background="@android:color/darker_gray"/>
+
+    <TextView
+        android:id="@+id/popupCancel"
+        android:layout_width="380dp"
+        android:layout_height="wrap_content"
+        android:text="Cancel"
+        android:textStyle="bold"
+        android:layout_weight="1.0"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_vertical"
+        android:clickable="true"
+        android:onClick="popupSortOnClick"
+        android:textColor="@color/colorMediumBlue"
+        android:width="350dp"
+        android:textAlignment="center"
+        android:padding="10dp"
+        android:textSize="20dp"
+        />
+
+</LinearLayout>
