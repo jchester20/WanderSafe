@@ -1,26 +1,56 @@
 package com.example.wandersafe;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.LinearLayout;
+import android.widget.Switch;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
+import com.android.volley.Response;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.Circle;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.JsonRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -37,6 +67,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     // The geographical location where the device is currently located. That is, the last-known
     // location retrieved by the Fused Location Provider.
     private Location mLastKnownLocation;
+    private Switch mapSwitch;
+    private JSONArray api_call_response;
+    private RequestQueue requestQueue;
+    private ArrayList<Marker> markers;
+    private HashMap<String, ArrayList> zones;
+    private ArrayList<Circle> circles;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,8 +85,115 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // Construct a FusedLocationProviderClient.
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        Button searchBtn = (Button)findViewById(R.id.searchBtn);
+        mapSwitch = (Switch)findViewById(R.id.mapSwitch);
+        requestQueue = Volley.newRequestQueue(this);
+        markers = new ArrayList<>();
+        zones = new HashMap<>();
+        circles = new ArrayList<>();
+
+        searchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(MapsActivity.this, SearchActivity.class);
+                // myIntent.putExtra("key", value); //Optional parameters
+                MapsActivity.this.startActivity(myIntent);
+            }
+        });
+        mapSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
+                    buildAPIQueue();
+                    startPinMap();
+                } else {
+                    startHeatMap();
+                }
+            }
+        });
     }
 
+    private void setUpZones() {
+        ArrayList<LatLng> highDanger = new ArrayList<>();
+        highDanger.add(new LatLng(37.879602, -122.273783));
+        zones.put("High Danger", highDanger);
+
+        ArrayList<LatLng> danger = new ArrayList<>();
+        danger.add(new LatLng(37.872291, -122.272302));
+        danger.add(new LatLng(37.874118, -122.268620));
+        zones.put("Danger", danger);
+
+        ArrayList<LatLng> modSafe = new ArrayList<>();
+        modSafe.add(new LatLng(37.875167, -122.272796));
+        zones.put("Mod Safe", modSafe);
+
+        ArrayList<LatLng> safe = new ArrayList<>();
+        safe.add(new LatLng(37.865459, -122.269949));
+        safe.add(new LatLng(37.865998, -122.265622));
+        zones.put("Safe", safe);
+
+        for (int i = 0; i < zones.get("High Danger").size(); i++) {
+            CircleOptions circleOptions = new CircleOptions()
+                    .center((LatLng) zones.get("High Danger").get(i))
+                    .radius(160); // In meters
+            Circle circle = mMap.addCircle(circleOptions);
+            circle.setFillColor(getColor(R.color.colorHighDangerTrans));
+            circle.setStrokeWidth(0);
+            circle.setZIndex(10000);
+            circles.add(circle);
+        }
+
+        for (int i = 0; i < zones.get("Danger").size(); i++) {
+            CircleOptions circleOptions = new CircleOptions()
+                    .center((LatLng) zones.get("Danger").get(i))
+                    .radius(140); // In meters
+            Circle circle = mMap.addCircle(circleOptions);
+            circle.setFillColor(getColor(R.color.colorDangerTrans));
+            circle.setStrokeWidth(0);
+            circle.setZIndex(1000000);
+            circles.add(circle);
+        }
+
+        for (int i = 0; i < zones.get("Mod Safe").size(); i++) {
+            CircleOptions circleOptions = new CircleOptions()
+                    .center((LatLng) zones.get("Mod Safe").get(i))
+                    .radius(170); // In meters
+            Circle circle = mMap.addCircle(circleOptions);
+            circle.setFillColor(getColor(R.color.colorModSafeTrans));
+            circle.setStrokeWidth(0);
+            circle.setZIndex(10000);
+            circles.add(circle);
+        }
+
+        for (int i = 0; i < zones.get("Safe").size(); i++) {
+            CircleOptions circleOptions = new CircleOptions()
+                    .center((LatLng) zones.get("Safe").get(i))
+                    .radius(180); // In meters
+            Circle circle = mMap.addCircle(circleOptions);
+            circle.setFillColor(getColor(R.color.colorSafeTrans));
+            circle.setStrokeWidth(0);
+            circle.setZIndex(10000);
+            circles.add(circle);
+        }
+    }
+
+    private void startHeatMap() {
+        for (Marker m : markers) {
+            m.setVisible(false);
+        }
+        for (Circle c : circles) {
+            c.setVisible(true);
+        }
+    }
+
+    private void startPinMap() {
+        for (Circle c : circles) {
+            c.setVisible(false);
+        }
+        for (Marker m : markers) {
+            m.setVisible(true);
+        }
+    }
 
     private void getLocationPermission() {
         /*
@@ -166,5 +309,45 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Get the current location of the device and set the position of the map.
         getDeviceLocation();
         mMap.setMyLocationEnabled(true);
+        setUpZones();
     }
+
+    protected void buildAPIQueue() {
+        String url = "https://data.cityofberkeley.info/resource/k2nh-s5h5.json";
+        System.out.println(url);
+
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
+                new com.android.volley.Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        //ADD FUNCTIONALITY HERE
+                        api_call_response = response;
+                        handleJSON();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                    }
+                });
+        //add request to queue
+        requestQueue.add(jsonArrayRequest);
+    }
+
+    protected void handleJSON() {
+        for(int i = 0; i < Math.min(50, api_call_response.length()); i++) {
+            try {
+                JSONObject currLoc = api_call_response.getJSONObject(i);
+                JSONObject loc = currLoc.getJSONObject("block_location");
+                String lat = loc.getString("latitude");
+                String lng = loc.getString("longitude");
+                Marker toAdd = mMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(lat), Double.parseDouble(lng))));
+                markers.add(toAdd);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 }
