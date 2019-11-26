@@ -9,14 +9,13 @@
         android:id="@+id/searchview"
         android:layout_width="fill_parent"
         android:layout_height="100dp"
-        android:background="@color/colorPrimaryDark"
-        android:closeIcon="@drawable/ic_arrow_down"
-        android:focusable="auto"
-        android:focusableInTouchMode="true"
         android:iconifiedByDefault="false"
+        android:closeIcon="@drawable/ic_arrow_down"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:background="@color/darkBackground"
         android:queryHint="City or neighborhood"
         android:theme="@style/SearchViewTheme">
-
         <requestFocus />
 
     </SearchView>
@@ -28,9 +27,10 @@
         android:layout_marginVertical="38dp"
         android:layout_marginStart="365dp"
         android:layout_marginBottom="600dp"
-        android:background="@color/colorPrimaryDark"
         android:src="@drawable/ic_arrow_down"
-        android:translationZ="90dp"></ImageButton>
+        android:translationZ="90dp"
+        android:background="@color/darkBackground">
+    </ImageButton>
 
     <TextView
         android:id="@+id/textViewHome"
@@ -44,7 +44,7 @@
         android:gravity="center_vertical"
         android:paddingLeft="15dp"
         android:text="Brooklyn"
-        android:textColor="@color/colorLightGrey"
+        android:textColor="@color/colorDarkGrey"
         android:textSize="20dp" />
 
     <TextView
@@ -52,14 +52,54 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
         android:layout_marginTop="125dp"
+        android:textSize="18dp"
         android:text="Recent"
-        android:textColor="@color/colorLightGrey"
-        android:textSize="18dp" />
+        android:textColor="@color/colorDarkGrey"
+        />
 
     <View
         android:layout_width="360dp"
         android:layout_height="1dp"
+        android:layout_marginTop="152dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="150dp"
-        android:background="@android:color/darker_gray" />
+        android:background="@android:color/darker_gray"/>
+
+    <TextView
+        android:id="@+id/textViewSF"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="San Francisco"
+        android:textSize="20dp"
+        android:textColor="@color/colorDarkGrey"
+        android:drawableStart="@drawable/ic_marker"
+        android:layout_marginTop="160dp"
+        android:drawablePadding="12dp"
+        android:paddingLeft="20dp"
+        android:gravity="center_vertical"
+        android:layout_marginStart="15dp"
+        />
+
+    <View
+        android:layout_width="360dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="195dp"
+        android:layout_marginStart="20dp"
+        android:background="@android:color/darker_gray"/>
+
+    <TextView
+        android:id="@+id/textViewMission"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mission District"
+        android:textSize="20dp"
+        android:textColor="@color/colorDarkGrey"
+        android:drawableStart="@drawable/ic_marker"
+        android:layout_marginTop="205dp"
+        android:drawablePadding="12dp"
+        android:paddingLeft="20dp"
+        android:gravity="center_vertical"
+        android:layout_marginStart="15dp"
+        />
+
+
 </RelativeLayout>
