@@ -30,30 +30,36 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <EditText
-                android:id="@+id/searchBar"
-                android:layout_width="227dp"
-                android:layout_height="39dp"
-                android:background="@color/colorLightGrey"
-                android:backgroundTint="@color/colorLightGrey"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:text="@android:string/search_go"
-                android:textAlignment="center"
+            <Button
+                android:id="@+id/button"
+                android:layout_width="341dp"
+                android:layout_height="47dp"
+                android:background="@drawable/search_btn_bground"
+                android:text="@string/searchBtn"
+                android:textAlignment="textStart"
+                android:paddingLeft="14dp"
+                android:textAllCaps="false"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="#80000000"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.881" />
+                app:layout_constraintVertical_bias="0.859" />
 
             <Switch
                 android:id="@+id/switch1"
-                android:layout_width="51dp"
-                android:layout_height="34dp"
-                android:layout_marginBottom="28dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:textOn="OFF"
+                android:thumbTint="@color/darkBackground"
+                android:track="@drawable/toggle_selector"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.93" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
