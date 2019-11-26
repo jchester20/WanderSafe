@@ -46,6 +46,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
@@ -69,6 +70,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private TextView checkedText;
     private JSONArray api_call_response;
     private RequestQueue requestQueue;
+    private ArrayList<Marker> markers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +91,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         pinLayout.setVisibility(View.GONE);
         checkedText = (TextView)findViewById(R.id.checkedText);
         requestQueue = Volley.newRequestQueue(this);
+        markers = new ArrayList<>();
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -114,12 +117,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         pinLayout.setVisibility(View.GONE);
         heatLayout.setVisibility(View.VISIBLE);
         checkedText.setVisibility(View.VISIBLE);
+        for (Marker m : markers) {
+            m.setVisible(false);
+        }
     }
 
     private void startPinMap() {
         heatLayout.setVisibility(View.GONE);
         pinLayout.setVisibility(View.VISIBLE);
         checkedText.setVisibility(View.GONE);
+        for (Marker m : markers) {
+            m.setVisible(true);
+        }
     }
 
     private void getLocationPermission() {
@@ -269,6 +278,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 String lat = loc.getString("latitude");
                 String lng = loc.getString("longitude");
                 Marker toAdd = mMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(lat), Double.parseDouble(lng))));
+                markers.add(toAdd);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
