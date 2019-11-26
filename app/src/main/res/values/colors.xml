@@ -12,5 +12,9 @@
     <color name="colorModSafe">#FFF27E</color>
     <color name="colorDanger">#FFAC4B</color>
     <color name="colorHighDanger">#FF0000</color>
+    <color name="colorSafeTrans">#8070DF67</color>
+    <color name="colorModSafeTrans">#80FFF27E</color>
+    <color name="colorDangerTrans">#80FFAC4B</color>
+    <color name="colorHighDangerTrans">#80FF0000</color>
 
 </resources>

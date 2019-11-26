@@ -27,6 +27,8 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.Circle;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
@@ -47,6 +49,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
@@ -64,13 +67,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     // The geographical location where the device is currently located. That is, the last-known
     // location retrieved by the Fused Location Provider.
     private Location mLastKnownLocation;
-    private LinearLayout heatLayout;
-    private LinearLayout pinLayout;
     private Switch mapSwitch;
-    private TextView checkedText;
     private JSONArray api_call_response;
     private RequestQueue requestQueue;
     private ArrayList<Marker> markers;
+    private HashMap<String, ArrayList> zones;
+    private ArrayList<Circle> circles;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,13 +87,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         Button searchBtn = (Button)findViewById(R.id.searchBtn);
         mapSwitch = (Switch)findViewById(R.id.mapSwitch);
-        heatLayout = (LinearLayout)findViewById(R.id.HeatParent);
-        heatLayout.setVisibility(View.VISIBLE);
-        pinLayout = (LinearLayout)findViewById(R.id.PinParent);
-        pinLayout.setVisibility(View.GONE);
-        checkedText = (TextView)findViewById(R.id.checkedText);
         requestQueue = Volley.newRequestQueue(this);
         markers = new ArrayList<>();
+        zones = new HashMap<>();
+        circles = new ArrayList<>();
+
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,19 +113,83 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         });
     }
 
+    private void setUpZones() {
+        ArrayList<LatLng> highDanger = new ArrayList<>();
+        highDanger.add(new LatLng(37.879602, -122.273783));
+        zones.put("High Danger", highDanger);
+
+        ArrayList<LatLng> danger = new ArrayList<>();
+        danger.add(new LatLng(37.872291, -122.272302));
+        danger.add(new LatLng(37.874118, -122.268620));
+        zones.put("Danger", danger);
+
+        ArrayList<LatLng> modSafe = new ArrayList<>();
+        modSafe.add(new LatLng(37.875167, -122.272796));
+        zones.put("Mod Safe", modSafe);
+
+        ArrayList<LatLng> safe = new ArrayList<>();
+        safe.add(new LatLng(37.865459, -122.269949));
+        safe.add(new LatLng(37.865998, -122.265622));
+        zones.put("Safe", safe);
+
+        for (int i = 0; i < zones.get("High Danger").size(); i++) {
+            CircleOptions circleOptions = new CircleOptions()
+                    .center((LatLng) zones.get("High Danger").get(i))
+                    .radius(160); // In meters
+            Circle circle = mMap.addCircle(circleOptions);
+            circle.setFillColor(getColor(R.color.colorHighDangerTrans));
+            circle.setStrokeWidth(0);
+            circle.setZIndex(10000);
+            circles.add(circle);
+        }
+
+        for (int i = 0; i < zones.get("Danger").size(); i++) {
+            CircleOptions circleOptions = new CircleOptions()
+                    .center((LatLng) zones.get("Danger").get(i))
+                    .radius(140); // In meters
+            Circle circle = mMap.addCircle(circleOptions);
+            circle.setFillColor(getColor(R.color.colorDangerTrans));
+            circle.setStrokeWidth(0);
+            circle.setZIndex(1000000);
+            circles.add(circle);
+        }
+
+        for (int i = 0; i < zones.get("Mod Safe").size(); i++) {
+            CircleOptions circleOptions = new CircleOptions()
+                    .center((LatLng) zones.get("Mod Safe").get(i))
+                    .radius(170); // In meters
+            Circle circle = mMap.addCircle(circleOptions);
+            circle.setFillColor(getColor(R.color.colorModSafeTrans));
+            circle.setStrokeWidth(0);
+            circle.setZIndex(10000);
+            circles.add(circle);
+        }
+
+        for (int i = 0; i < zones.get("Safe").size(); i++) {
+            CircleOptions circleOptions = new CircleOptions()
+                    .center((LatLng) zones.get("Safe").get(i))
+                    .radius(180); // In meters
+            Circle circle = mMap.addCircle(circleOptions);
+            circle.setFillColor(getColor(R.color.colorSafeTrans));
+            circle.setStrokeWidth(0);
+            circle.setZIndex(10000);
+            circles.add(circle);
+        }
+    }
+
     private void startHeatMap() {
-        pinLayout.setVisibility(View.GONE);
-        heatLayout.setVisibility(View.VISIBLE);
-        checkedText.setVisibility(View.VISIBLE);
         for (Marker m : markers) {
             m.setVisible(false);
+        }
+        for (Circle c : circles) {
+            c.setVisible(true);
         }
     }
 
     private void startPinMap() {
-        heatLayout.setVisibility(View.GONE);
-        pinLayout.setVisibility(View.VISIBLE);
-        checkedText.setVisibility(View.GONE);
+        for (Circle c : circles) {
+            c.setVisible(false);
+        }
         for (Marker m : markers) {
             m.setVisible(true);
         }
@@ -245,6 +309,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Get the current location of the device and set the position of the map.
         getDeviceLocation();
         mMap.setMyLocationEnabled(true);
+        setUpZones();
     }
 
     protected void buildAPIQueue() {
