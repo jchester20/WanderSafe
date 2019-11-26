@@ -9,5 +9,9 @@
     <color name="colorLightGrey">#E0DBDB</color>
     <color name="colorDarkGrey">#6D6B6B</color>
     <color name="colorYellow">#FFF27E</color>
+    <color name="colorSafe">#70DF67</color>
+    <color name="colorModSafe">#FFF27E</color>
+    <color name="colorDanger">#FFAC4B</color>
+    <color name="colorHighDanger">#FF0000</color>
 
 </resources>

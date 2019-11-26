@@ -9,13 +9,18 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.LinearLayout;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
+import com.android.volley.Response;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -24,8 +29,24 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.JsonRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -42,6 +63,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     // The geographical location where the device is currently located. That is, the last-known
     // location retrieved by the Fused Location Provider.
     private Location mLastKnownLocation;
+    private LinearLayout heatLayout;
+    private LinearLayout pinLayout;
+    private Switch mapSwitch;
+    private TextView checkedText;
+    private JSONArray api_call_response;
+    private RequestQueue requestQueue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +82,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Construct a FusedLocationProviderClient.
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         Button searchBtn = (Button)findViewById(R.id.searchBtn);
-        final Switch mapSwitch = (Switch)findViewById(R.id.mapSwitch);
+        mapSwitch = (Switch)findViewById(R.id.mapSwitch);
+        heatLayout = (LinearLayout)findViewById(R.id.HeatParent);
+        heatLayout.setVisibility(View.VISIBLE);
+        pinLayout = (LinearLayout)findViewById(R.id.PinParent);
+        pinLayout.setVisibility(View.GONE);
+        checkedText = (TextView)findViewById(R.id.checkedText);
+        requestQueue = Volley.newRequestQueue(this);
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,10 +97,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 MapsActivity.this.startActivity(myIntent);
             }
         });
-        mapSwitch.setOnClickListener(new View.OnClickListener() {
+        mapSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
-                if(mapSwitch.isChecked()) {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
+                    buildAPIQueue();
                     startPinMap();
                 } else {
                     startHeatMap();
@@ -77,11 +111,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private void startHeatMap() {
-
+        pinLayout.setVisibility(View.GONE);
+        heatLayout.setVisibility(View.VISIBLE);
+        checkedText.setVisibility(View.VISIBLE);
     }
 
     private void startPinMap() {
-
+        heatLayout.setVisibility(View.GONE);
+        pinLayout.setVisibility(View.VISIBLE);
+        checkedText.setVisibility(View.GONE);
     }
 
     private void getLocationPermission() {
@@ -199,4 +237,42 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         getDeviceLocation();
         mMap.setMyLocationEnabled(true);
     }
+
+    protected void buildAPIQueue() {
+        String url = "https://data.cityofberkeley.info/resource/k2nh-s5h5.json";
+        System.out.println(url);
+
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
+                new com.android.volley.Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        //ADD FUNCTIONALITY HERE
+                        api_call_response = response;
+                        handleJSON();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                    }
+                });
+        //add request to queue
+        requestQueue.add(jsonArrayRequest);
+    }
+
+    protected void handleJSON() {
+        for(int i = 0; i < Math.min(50, api_call_response.length()); i++) {
+            try {
+                JSONObject currLoc = api_call_response.getJSONObject(i);
+                JSONObject loc = currLoc.getJSONObject("block_location");
+                String lat = loc.getString("latitude");
+                String lng = loc.getString("longitude");
+                Marker toAdd = mMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(lat), Double.parseDouble(lng))));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 }
