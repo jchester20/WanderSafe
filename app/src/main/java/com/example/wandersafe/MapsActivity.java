@@ -9,9 +9,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.LinearLayout;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
@@ -42,6 +46,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     // The geographical location where the device is currently located. That is, the last-known
     // location retrieved by the Fused Location Provider.
     private Location mLastKnownLocation;
+    private LinearLayout heatLayout;
+    private LinearLayout pinLayout;
+    private Switch mapSwitch;
+    private TextView checkedText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +63,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Construct a FusedLocationProviderClient.
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         Button searchBtn = (Button)findViewById(R.id.searchBtn);
-        final Switch mapSwitch = (Switch)findViewById(R.id.mapSwitch);
+        mapSwitch = (Switch)findViewById(R.id.mapSwitch);
+        heatLayout = (LinearLayout)findViewById(R.id.HeatParent);
+        heatLayout.setVisibility(View.VISIBLE);
+        pinLayout = (LinearLayout)findViewById(R.id.PinParent);
+        pinLayout.setVisibility(View.GONE);
+        checkedText = (TextView)findViewById(R.id.checkedText);
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,10 +77,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 MapsActivity.this.startActivity(myIntent);
             }
         });
-        mapSwitch.setOnClickListener(new View.OnClickListener() {
+        mapSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
-                if(mapSwitch.isChecked()) {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
                     startPinMap();
                 } else {
                     startHeatMap();
@@ -77,11 +90,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private void startHeatMap() {
-
+        pinLayout.setVisibility(View.GONE);
+        heatLayout.setVisibility(View.VISIBLE);
+        checkedText.setVisibility(View.VISIBLE);
     }
 
     private void startPinMap() {
-
+        heatLayout.setVisibility(View.GONE);
+        pinLayout.setVisibility(View.VISIBLE);
+        checkedText.setVisibility(View.GONE);
     }
 
     private void getLocationPermission() {
