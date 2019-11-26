@@ -1,5 +1,7 @@
 package com.example.wandersafe;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.location.Location;
@@ -57,7 +59,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //start search activity
+                Intent myIntent = new Intent(MapsActivity.this, SearchActivity.class);
+                // myIntent.putExtra("key", value); //Optional parameters
+                MapsActivity.this.startActivity(myIntent);
             }
         });
         mapSwitch.setOnClickListener(new View.OnClickListener() {
