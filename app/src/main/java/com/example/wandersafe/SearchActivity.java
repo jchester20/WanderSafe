@@ -19,6 +19,5 @@ public class SearchActivity extends AppCompatActivity {
         searchView.setIconifiedByDefault(false);
 
         searchView.setQueryHint("City or neighborhood");
-
     }
 }
