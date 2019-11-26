@@ -104,7 +104,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked) {
-                    buildAPIQueue();
                     startPinMap();
                 } else {
                     startHeatMap();
@@ -310,6 +309,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         getDeviceLocation();
         mMap.setMyLocationEnabled(true);
         setUpZones();
+        buildAPIQueue();
     }
 
     protected void buildAPIQueue() {
@@ -343,6 +343,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 String lat = loc.getString("latitude");
                 String lng = loc.getString("longitude");
                 Marker toAdd = mMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(lat), Double.parseDouble(lng))));
+                toAdd.setVisible(false);
                 markers.add(toAdd);
             } catch (JSONException e) {
                 e.printStackTrace();
