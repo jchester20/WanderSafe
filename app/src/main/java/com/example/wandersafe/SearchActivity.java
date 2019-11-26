@@ -23,6 +23,7 @@ public class SearchActivity extends AppCompatActivity {
         searchView.setIconifiedByDefault(false);
 
         searchView.setQueryHint("City or neighborhood");
+
         ImageButton minimizeBtn = (ImageButton) findViewById(R.id.arrowDown);
         minimizeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
