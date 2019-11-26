@@ -26,6 +26,7 @@
         <activity android:name=".MapController"
             android:label="@string/title_activity_maps">
         </activity>
+        <activity android:theme="@style/Theme.Design.NoActionBar" android:name=".SearchActivity"/>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
