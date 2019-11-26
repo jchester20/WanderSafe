@@ -5,6 +5,9 @@ import android.content.res.Resources;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Switch;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -49,8 +52,33 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // Construct a FusedLocationProviderClient.
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        Button searchBtn = (Button)findViewById(R.id.searchBtn);
+        final Switch mapSwitch = (Switch)findViewById(R.id.mapSwitch);
+        searchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //start search activity
+            }
+        });
+        mapSwitch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mapSwitch.isChecked()) {
+                    startPinMap();
+                } else {
+                    startHeatMap();
+                }
+            }
+        });
     }
 
+    private void startHeatMap() {
+
+    }
+
+    private void startPinMap() {
+
+    }
 
     private void getLocationPermission() {
         /*
