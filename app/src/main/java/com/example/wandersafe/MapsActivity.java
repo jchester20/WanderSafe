@@ -16,6 +16,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
+import com.android.volley.Response;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -24,8 +25,24 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.JsonRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -42,6 +59,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     // The geographical location where the device is currently located. That is, the last-known
     // location retrieved by the Fused Location Provider.
     private Location mLastKnownLocation;
+    private JSONArray api_call_response;
+    private RequestQueue requestQueue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +75,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         Button searchBtn = (Button)findViewById(R.id.searchBtn);
         final Switch mapSwitch = (Switch)findViewById(R.id.mapSwitch);
+        requestQueue = Volley.newRequestQueue(this);
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,6 +88,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onClick(View v) {
                 if(mapSwitch.isChecked()) {
+                    buildAPIQueue();
                     startPinMap();
                 } else {
                     startHeatMap();
@@ -199,4 +220,42 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         getDeviceLocation();
         mMap.setMyLocationEnabled(true);
     }
+
+    protected void buildAPIQueue() {
+        String url = "https://data.cityofberkeley.info/resource/k2nh-s5h5.json";
+        System.out.println(url);
+
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
+                new com.android.volley.Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        //ADD FUNCTIONALITY HERE
+                        api_call_response = response;
+                        handleJSON();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                    }
+                });
+        //add request to queue
+        requestQueue.add(jsonArrayRequest);
+    }
+
+    protected void handleJSON() {
+        for(int i = 0; i < Math.min(50, api_call_response.length()); i++) {
+            try {
+                JSONObject currLoc = api_call_response.getJSONObject(i);
+                JSONObject loc = currLoc.getJSONObject("block_location");
+                String lat = loc.getString("latitude");
+                String lng = loc.getString("longitude");
+                Marker toAdd = mMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(lat), Double.parseDouble(lng))));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 }
