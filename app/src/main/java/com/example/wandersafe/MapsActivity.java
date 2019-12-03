@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +14,7 @@ import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -33,6 +35,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.TileOverlay;
+import com.google.android.gms.maps.model.TileOverlayOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
@@ -43,6 +47,8 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.maps.android.heatmaps.Gradient;
+import com.google.maps.android.heatmaps.HeatmapTileProvider;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -50,6 +56,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
@@ -61,6 +68,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private final LatLng mDefaultLocation = new LatLng(-33.8523341, 151.2106085);
     private static final int DEFAULT_ZOOM = 15;
+    private static final float HEATMAP_ZOOM = 14.4f;
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
     private boolean mLocationPermissionGranted;
 
@@ -73,6 +81,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private ArrayList<Marker> markers;
     private HashMap<String, ArrayList> zones;
     private ArrayList<Circle> circles;
+    private TileOverlay mOverlay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,85 +122,114 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private void setUpZones() {
-        ArrayList<LatLng> highDanger = new ArrayList<>();
-        highDanger.add(new LatLng(37.879602, -122.273783));
-        zones.put("High Danger", highDanger);
+        List<LatLng> list = new ArrayList<LatLng>();
+        int[] color = {
+                Color.rgb(255, 242, 126),
+                Color.rgb(255, 0, 0)
+        };
 
-        ArrayList<LatLng> danger = new ArrayList<>();
-        danger.add(new LatLng(37.872291, -122.272302));
-        danger.add(new LatLng(37.874118, -122.268620));
-        zones.put("Danger", danger);
+        float[] startPoints = {
+                0.05f, 1f
+        };
 
-        ArrayList<LatLng> modSafe = new ArrayList<>();
-        modSafe.add(new LatLng(37.875167, -122.272796));
-        zones.put("Mod Safe", modSafe);
-
-        ArrayList<LatLng> safe = new ArrayList<>();
-        safe.add(new LatLng(37.865459, -122.269949));
-        safe.add(new LatLng(37.865998, -122.265622));
-        zones.put("Safe", safe);
-
-        for (int i = 0; i < zones.get("High Danger").size(); i++) {
-            CircleOptions circleOptions = new CircleOptions()
-                    .center((LatLng) zones.get("High Danger").get(i))
-                    .radius(160); // In meters
-            Circle circle = mMap.addCircle(circleOptions);
-            circle.setFillColor(getColor(R.color.colorHighDangerTrans));
-            circle.setStrokeWidth(0);
-            circle.setZIndex(10000);
-            circles.add(circle);
+        Gradient gradient = new Gradient(color, startPoints);
+        // Get the data: latitude/longitude positions of police stations.
+        for (Marker m : markers) {
+            list.add(m.getPosition());
         }
 
-        for (int i = 0; i < zones.get("Danger").size(); i++) {
-            CircleOptions circleOptions = new CircleOptions()
-                    .center((LatLng) zones.get("Danger").get(i))
-                    .radius(140); // In meters
-            Circle circle = mMap.addCircle(circleOptions);
-            circle.setFillColor(getColor(R.color.colorDangerTrans));
-            circle.setStrokeWidth(0);
-            circle.setZIndex(1000000);
-            circles.add(circle);
-        }
+        // Create a heat map tile provider, passing it the latlngs of the police stations.
+        HeatmapTileProvider mProvider = new HeatmapTileProvider.Builder()
+                .data(list)
+                .radius(50)
+                .gradient(gradient)
+                .build();
+        // Add a tile overlay to the map, using the heat map tile provider.
+        mOverlay = mMap.addTileOverlay(new TileOverlayOptions().tileProvider(mProvider));
 
-        for (int i = 0; i < zones.get("Mod Safe").size(); i++) {
-            CircleOptions circleOptions = new CircleOptions()
-                    .center((LatLng) zones.get("Mod Safe").get(i))
-                    .radius(170); // In meters
-            Circle circle = mMap.addCircle(circleOptions);
-            circle.setFillColor(getColor(R.color.colorModSafeTrans));
-            circle.setStrokeWidth(0);
-            circle.setZIndex(10000);
-            circles.add(circle);
-        }
-
-        for (int i = 0; i < zones.get("Safe").size(); i++) {
-            CircleOptions circleOptions = new CircleOptions()
-                    .center((LatLng) zones.get("Safe").get(i))
-                    .radius(180); // In meters
-            Circle circle = mMap.addCircle(circleOptions);
-            circle.setFillColor(getColor(R.color.colorSafeTrans));
-            circle.setStrokeWidth(0);
-            circle.setZIndex(10000);
-            circles.add(circle);
-        }
+//        ArrayList<LatLng> highDanger = new ArrayList<>();
+//        highDanger.add(new LatLng(37.879602, -122.273783));
+//        zones.put("High Danger", highDanger);
+//
+//        ArrayList<LatLng> danger = new ArrayList<>();
+//        danger.add(new LatLng(37.872291, -122.272302));
+//        danger.add(new LatLng(37.874118, -122.268620));
+//        zones.put("Danger", danger);
+//
+//        ArrayList<LatLng> modSafe = new ArrayList<>();
+//        modSafe.add(new LatLng(37.875167, -122.272796));
+//        zones.put("Mod Safe", modSafe);
+//
+//        ArrayList<LatLng> safe = new ArrayList<>();
+//        safe.add(new LatLng(37.865459, -122.269949));
+//        safe.add(new LatLng(37.865998, -122.265622));
+//        zones.put("Safe", safe);
+//
+//        for (int i = 0; i < zones.get("High Danger").size(); i++) {
+//            CircleOptions circleOptions = new CircleOptions()
+//                    .center((LatLng) zones.get("High Danger").get(i))
+//                    .radius(160); // In meters
+//            Circle circle = mMap.addCircle(circleOptions);
+//            circle.setFillColor(getColor(R.color.colorHighDangerTrans));
+//            circle.setStrokeWidth(0);
+//            circle.setZIndex(10000);
+//            circles.add(circle);
+//        }
+//
+//        for (int i = 0; i < zones.get("Danger").size(); i++) {
+//            CircleOptions circleOptions = new CircleOptions()
+//                    .center((LatLng) zones.get("Danger").get(i))
+//                    .radius(140); // In meters
+//            Circle circle = mMap.addCircle(circleOptions);
+//            circle.setFillColor(getColor(R.color.colorDangerTrans));
+//            circle.setStrokeWidth(0);
+//            circle.setZIndex(1000000);
+//            circles.add(circle);
+//        }
+//
+//        for (int i = 0; i < zones.get("Mod Safe").size(); i++) {
+//            CircleOptions circleOptions = new CircleOptions()
+//                    .center((LatLng) zones.get("Mod Safe").get(i))
+//                    .radius(170); // In meters
+//            Circle circle = mMap.addCircle(circleOptions);
+//            circle.setFillColor(getColor(R.color.colorModSafeTrans));
+//            circle.setStrokeWidth(0);
+//            circle.setZIndex(10000);
+//            circles.add(circle);
+//        }
+//
+//        for (int i = 0; i < zones.get("Safe").size(); i++) {
+//            CircleOptions circleOptions = new CircleOptions()
+//                    .center((LatLng) zones.get("Safe").get(i))
+//                    .radius(180); // In meters
+//            Circle circle = mMap.addCircle(circleOptions);
+//            circle.setFillColor(getColor(R.color.colorSafeTrans));
+//            circle.setStrokeWidth(0);
+//            circle.setZIndex(10000);
+//            circles.add(circle);
+//        }
     }
 
     private void startHeatMap() {
         for (Marker m : markers) {
             m.setVisible(false);
         }
-        for (Circle c : circles) {
-            c.setVisible(true);
-        }
+//        for (Circle c : circles) {
+//            c.setVisible(true);
+//        }
+        mOverlay.setVisible(true);
+        mMap.moveCamera(CameraUpdateFactory.zoomTo(HEATMAP_ZOOM));
     }
 
     private void startPinMap() {
-        for (Circle c : circles) {
-            c.setVisible(false);
-        }
+//        for (Circle c : circles) {
+//            c.setVisible(false);
+//        }
+        mOverlay.setVisible(false);
         for (Marker m : markers) {
             m.setVisible(true);
         }
+        mMap.moveCamera(CameraUpdateFactory.zoomTo(DEFAULT_ZOOM));
     }
 
     private void getLocationPermission() {
@@ -263,9 +301,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             mLastKnownLocation = (Location)task.getResult();
                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
                                     new LatLng(mLastKnownLocation.getLatitude(),
-                                            mLastKnownLocation.getLongitude()), DEFAULT_ZOOM));
+                                            mLastKnownLocation.getLongitude()), HEATMAP_ZOOM));
                         } else {
-                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mDefaultLocation, DEFAULT_ZOOM));
+                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mDefaultLocation, HEATMAP_ZOOM));
                             mMap.getUiSettings().setMyLocationButtonEnabled(false);
                         }
                     }
@@ -308,7 +346,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Get the current location of the device and set the position of the map.
         getDeviceLocation();
         mMap.setMyLocationEnabled(true);
-        setUpZones();
         buildAPIQueue();
     }
 
@@ -349,6 +386,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 e.printStackTrace();
             }
         }
+        setUpZones();
     }
 
 }
