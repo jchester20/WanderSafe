@@ -68,6 +68,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private final LatLng mDefaultLocation = new LatLng(-33.8523341, 151.2106085);
     private static final int DEFAULT_ZOOM = 15;
+    private static final float HEATMAP_ZOOM = 14.4f;
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
     private boolean mLocationPermissionGranted;
 
@@ -217,6 +218,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //            c.setVisible(true);
 //        }
         mOverlay.setVisible(true);
+        mMap.moveCamera(CameraUpdateFactory.zoomTo(HEATMAP_ZOOM));
     }
 
     private void startPinMap() {
@@ -227,6 +229,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         for (Marker m : markers) {
             m.setVisible(true);
         }
+        mMap.moveCamera(CameraUpdateFactory.zoomTo(DEFAULT_ZOOM));
     }
 
     private void getLocationPermission() {
@@ -298,9 +301,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             mLastKnownLocation = (Location)task.getResult();
                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
                                     new LatLng(mLastKnownLocation.getLatitude(),
-                                            mLastKnownLocation.getLongitude()), DEFAULT_ZOOM));
+                                            mLastKnownLocation.getLongitude()), HEATMAP_ZOOM));
                         } else {
-                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mDefaultLocation, DEFAULT_ZOOM));
+                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mDefaultLocation, HEATMAP_ZOOM));
                             mMap.getUiSettings().setMyLocationButtonEnabled(false);
                         }
                     }
