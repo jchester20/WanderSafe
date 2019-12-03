@@ -123,12 +123,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private void setUpZones() {
         List<LatLng> list = new ArrayList<LatLng>();
         int[] color = {
-                Color.rgb(255, 0, 0),
-                Color.rgb(255, 172, 75)
+                Color.rgb(255, 242, 126),
+                Color.rgb(255, 0, 0)
         };
 
         float[] startPoints = {
-                0.5f, 1f
+                0.05f, 1f
         };
 
         Gradient gradient = new Gradient(color, startPoints);
