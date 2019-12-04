@@ -390,7 +390,7 @@
         app:layout_constraintStart_toEndOf="@+id/Overall_Safety"
         app:layout_constraintTop_toTopOf="@+id/imageView"
         app:layout_constraintVertical_bias="0.098"
-        app:srcCompat="@drawable/star" />
+        app:srcCompat="@drawable/yellow_star" />
 
     <ImageView
         android:id="@+id/smallstar7"
@@ -403,7 +403,7 @@
         app:layout_constraintStart_toEndOf="@+id/accessibility"
         app:layout_constraintTop_toTopOf="@+id/imageView"
         app:layout_constraintVertical_bias="0.434"
-        app:srcCompat="@drawable/star" />
+        app:srcCompat="@drawable/yellow_star" />
 
     <ImageView
         android:id="@+id/smallstar10"
@@ -416,7 +416,7 @@
         app:layout_constraintStart_toEndOf="@+id/crime_Rate"
         app:layout_constraintTop_toTopOf="@+id/imageView"
         app:layout_constraintVertical_bias="0.67"
-        app:srcCompat="@drawable/star" />
+        app:srcCompat="@drawable/yellow_star" />
 
     <ImageView
         android:id="@+id/smallstar12"
@@ -429,7 +429,7 @@
         app:layout_constraintStart_toEndOf="@+id/cleanliness"
         app:layout_constraintTop_toTopOf="@+id/imageView"
         app:layout_constraintVertical_bias="0.888"
-        app:srcCompat="@drawable/star" />
+        app:srcCompat="@drawable/yellow_star" />
 
     <ImageView
         android:id="@+id/smallstar13"
@@ -442,7 +442,7 @@
         app:layout_constraintStart_toEndOf="@+id/smallstar12"
         app:layout_constraintTop_toTopOf="@+id/imageView"
         app:layout_constraintVertical_bias="0.888"
-        app:srcCompat="@drawable/star" />
+        app:srcCompat="@drawable/yellow_star" />
 
     <ImageView
         android:id="@+id/smallstar14"
@@ -455,7 +455,7 @@
         app:layout_constraintStart_toEndOf="@+id/smallstar13"
         app:layout_constraintTop_toTopOf="@+id/imageView"
         app:layout_constraintVertical_bias="0.888"
-        app:srcCompat="@drawable/star" />
+        app:srcCompat="@drawable/yellow_star" />
 
     <ImageView
         android:id="@+id/smallstar11"
@@ -466,7 +466,7 @@
         app:layout_constraintEnd_toEndOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
         app:layout_constraintVertical_bias="0.67"
-        app:srcCompat="@drawable/star" />
+        app:srcCompat="@drawable/yellow_star" />
 
     <ImageView
         android:id="@+id/smallstar8"
@@ -479,7 +479,7 @@
         app:layout_constraintStart_toEndOf="@+id/smallstar7"
         app:layout_constraintTop_toTopOf="@+id/imageView"
         app:layout_constraintVertical_bias="0.434"
-        app:srcCompat="@drawable/star" />
+        app:srcCompat="@drawable/yellow_star" />
 
     <ImageView
         android:id="@+id/smallstar9"
@@ -492,7 +492,7 @@
         app:layout_constraintStart_toEndOf="@+id/smallstar8"
         app:layout_constraintTop_toTopOf="@+id/imageView"
         app:layout_constraintVertical_bias="0.434"
-        app:srcCompat="@drawable/star" />
+        app:srcCompat="@drawable/yellow_star" />
 
     <ImageView
         android:id="@+id/smallstar2"
@@ -505,7 +505,7 @@
         app:layout_constraintStart_toEndOf="@+id/smallstar"
         app:layout_constraintTop_toTopOf="@+id/imageView"
         app:layout_constraintVertical_bias="0.099"
-        app:srcCompat="@drawable/star" />
+        app:srcCompat="@drawable/yellow_star" />
 
     <ImageView
         android:id="@+id/smallstar5"
@@ -518,7 +518,7 @@
         app:layout_constraintStart_toEndOf="@+id/smallstar2"
         app:layout_constraintTop_toTopOf="@+id/imageView"
         app:layout_constraintVertical_bias="0.099"
-        app:srcCompat="@drawable/star" />
+        app:srcCompat="@drawable/yellow_star" />
 
     <ImageView
         android:id="@+id/smallstar6"
@@ -531,7 +531,7 @@
         app:layout_constraintStart_toEndOf="@+id/smallstar5"
         app:layout_constraintTop_toTopOf="@+id/imageView"
         app:layout_constraintVertical_bias="0.099"
-        app:srcCompat="@drawable/star" />
+        app:srcCompat="@drawable/yellow_star" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

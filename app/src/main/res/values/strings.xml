@@ -111,4 +111,20 @@
     <string name="cece_kim">Cece Kim</string>
     <string name="sep_2019">Sep 2019</string>
     <string name="title_activity_city_summary">CitySummaryActivity</string>
+    <string name="crime_density">Crime Density</string>
+    <string name="overall_acessibility">Overall Acessibility</string>
+    <string name="todo">TODO</string>
+    <string name="smol_star">smol star</string>
+    <string name="berkeley">Berkeley</string>
+    <string name="overall_acessibility">Overall Acessibility</string>
+    <string name="cragmont">Cragmont</string>
+    <string name="berkeley_hills">Berkeley Hills</string>
+    <string name="kensington">Kensington</string>
+    <string name="safest_neighborhoods">Safest Neighborhoods</string>
+    <string name="downtown_berkeley">Downtown Berkeley</string>
+    <string name="most_walkable_neighborhoods">Most Walkable Neighborhoods</string>
+    <string name="purple_rectangle">purple rectangle</string>
+    <string name="southside">Southside</string>
+    <string name="north_berkeley">North Berkeley</string>
+    <string name="rockridge">Rockridge</string>
 </resources>

@@ -16,15 +16,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity
+            android:name=".CitySummaryActivity"
+            android:label="@string/title_activity_city_summary"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".ReviewActivity"
             android:label="@string/title_activity_review"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".MapController"
-            android:label="@string/title_activity_maps">
-        </activity>
-        <activity android:theme="@style/Theme.Design.NoActionBar" android:name=".SearchActivity"/>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".MapController"
+            android:label="@string/title_activity_maps"></activity>
+        <activity
+            android:name=".SearchActivity"
+            android:theme="@style/Theme.Design.NoActionBar" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
