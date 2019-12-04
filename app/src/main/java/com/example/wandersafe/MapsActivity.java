@@ -54,6 +54,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -82,6 +83,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private HashMap<String, ArrayList> zones;
     private ArrayList<Circle> circles;
     private TileOverlay mOverlay;
+    private File ReviewCSV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +102,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         markers = new ArrayList<>();
         zones = new HashMap<>();
         circles = new ArrayList<>();
+        ReviewCSV = new File("UserReviewsCSV.csv");
 
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,12 +136,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         };
 
         Gradient gradient = new Gradient(color, startPoints);
-        // Get the data: latitude/longitude positions of police stations.
+        // Get the data: latitude/longitude positions of crimes.
         for (Marker m : markers) {
             list.add(m.getPosition());
         }
 
-        // Create a heat map tile provider, passing it the latlngs of the police stations.
+        // Create a heat map tile provider, passing it the latlngs of crimes.
         HeatmapTileProvider mProvider = new HeatmapTileProvider.Builder()
                 .data(list)
                 .radius(50)
