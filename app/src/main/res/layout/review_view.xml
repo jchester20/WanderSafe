@@ -57,7 +57,7 @@
             android:layout_width="20dp"
             android:layout_height="14dp"
             android:visibility="invisible"
-            app:srcCompat="@drawable/star"
+            app:srcCompat="@drawable/yellow_star"
             tools:visibility="invisible" />
 
         <ImageView
@@ -65,7 +65,7 @@
             android:layout_width="20dp"
             android:layout_height="14dp"
             android:visibility="invisible"
-            app:srcCompat="@drawable/star"
+            app:srcCompat="@drawable/yellow_star"
             tools:visibility="invisible" />
 
         <ImageView
@@ -73,7 +73,7 @@
             android:layout_width="20dp"
             android:layout_height="14dp"
             android:visibility="invisible"
-            app:srcCompat="@drawable/star"
+            app:srcCompat="@drawable/yellow_star"
             tools:visibility="invisible" />
 
         <ImageView
@@ -81,7 +81,7 @@
             android:layout_width="20dp"
             android:layout_height="14dp"
             android:visibility="invisible"
-            app:srcCompat="@drawable/star"
+            app:srcCompat="@drawable/yellow_star"
             tools:visibility="invisible" />
 
         <ImageView
@@ -89,7 +89,7 @@
             android:layout_width="20dp"
             android:layout_height="14dp"
             android:visibility="invisible"
-            app:srcCompat="@drawable/star"
+            app:srcCompat="@drawable/yellow_star"
             tools:visibility="invisible" />
     </LinearLayout>
 

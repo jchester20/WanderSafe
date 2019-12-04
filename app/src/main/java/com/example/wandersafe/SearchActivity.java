@@ -57,6 +57,11 @@ public class SearchActivity extends AppCompatActivity {
         SearchActivity.this.startActivity(myIntentTwo);
     }
 
+    public void reviews(View v) {
+        Intent myIntentTwo = new Intent(SearchActivity.this, ReviewActivity.class);
+        SearchActivity.this.startActivity(myIntentTwo);
+    }
+
     public void mapView(View v) {
         Intent myIntent = new Intent(SearchActivity.this, MapsActivity.class);
         SearchActivity.this.startActivity(myIntent);

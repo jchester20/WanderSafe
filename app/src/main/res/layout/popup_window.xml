@@ -15,19 +15,43 @@
         android:width="350dp"
         android:clickable="true"
         android:gravity="center_vertical"
+        android:onClick="overview"
         android:padding="10dp"
         android:text="Overview"
-        android:onClick="overview"
         android:textAlignment="center"
         android:textColor="@color/colorMediumBlue"
         android:textSize="20dp" />
 
     <View
+        android:id="@+id/separator2"
         android:layout_width="fill_parent"
         android:layout_height="1dp"
-        android:id="@+id/separator2"
-        android:visibility="visible"
-        android:background="@android:color/darker_gray"/>
+        android:background="@android:color/darker_gray"
+        android:visibility="visible" />
+
+    <TextView
+        android:id="@+id/popupOverview2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1.0"
+        android:width="350dp"
+        android:clickable="true"
+        android:gravity="center_vertical"
+        android:onClick="reviews"
+        android:padding="10dp"
+        android:text="Reviews"
+        android:textAlignment="center"
+        android:textColor="@color/colorMediumBlue"
+        android:textSize="20dp" />
+
+    <View
+        android:id="@+id/separator"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="1.0"
+        android:background="@android:color/darker_gray"
+        android:visibility="visible" />
 
     <TextView
         android:id="@+id/popupMapView"
