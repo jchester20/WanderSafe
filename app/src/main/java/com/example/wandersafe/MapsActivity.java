@@ -49,15 +49,24 @@ import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.maps.android.heatmaps.Gradient;
 import com.google.maps.android.heatmaps.HeatmapTileProvider;
+import com.google.maps.android.heatmaps.WeightedLatLng;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import de.siegmar.fastcsv.reader.CsvContainer;
+import de.siegmar.fastcsv.reader.CsvReader;
+import de.siegmar.fastcsv.reader.CsvRow;
 
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
@@ -82,8 +91,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private ArrayList<Marker> markers;
     private HashMap<String, ArrayList> zones;
     private ArrayList<Circle> circles;
-    private TileOverlay mOverlay;
-    private File ReviewCSV;
+    private TileOverlay mOverlayDanger;
+    private TileOverlay mOverlaySafe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,7 +111,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         markers = new ArrayList<>();
         zones = new HashMap<>();
         circles = new ArrayList<>();
-        ReviewCSV = new File("UserReviewsCSV.csv");
 
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,30 +133,64 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private void setUpZones() {
-        List<LatLng> list = new ArrayList<LatLng>();
-        int[] color = {
+        List<WeightedLatLng> dangerList = new ArrayList<WeightedLatLng>();
+        List<WeightedLatLng> safeList = new ArrayList<>();
+        int[] dangerColor = {
                 Color.rgb(255, 242, 126),
                 Color.rgb(255, 0, 0)
         };
-
-        float[] startPoints = {
-                0.05f, 1f
+        int[] safeColor = {
+                Color.rgb(112, 223, 103)
         };
 
-        Gradient gradient = new Gradient(color, startPoints);
+        float[] dangerStartPoints = {
+                0.06f, 1f
+        };
+        float[] safeStartPoints = {
+                1f
+        };
+
+        Gradient dangerGradient = new Gradient(dangerColor, dangerStartPoints);
+        Gradient safeGradient = new Gradient(safeColor, safeStartPoints);
         // Get the data: latitude/longitude positions of crimes.
         for (Marker m : markers) {
-            list.add(m.getPosition());
+            dangerList.add(new WeightedLatLng(m.getPosition(), 1));
+        }
+        BufferedReader reader = new BufferedReader(new InputStreamReader(getResources().openRawResource(R.raw.user_reviews_csv)));
+        try {
+            String csvLine;
+            while ((csvLine = reader.readLine()) != null) {
+                String[] row = csvLine.split(",");
+                int weight = Integer.parseInt(row[3]);
+                if (weight == 1) {
+                    dangerList.add(new WeightedLatLng(
+                            new LatLng(Double.parseDouble(row[4]), Double.parseDouble(row[5])),
+                            1));
+                } else {
+                    safeList.add(new WeightedLatLng(
+                            new LatLng(Double.parseDouble(row[4]), Double.parseDouble(row[5])),
+                            1));
+                }
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
         }
 
         // Create a heat map tile provider, passing it the latlngs of crimes.
         HeatmapTileProvider mProvider = new HeatmapTileProvider.Builder()
-                .data(list)
+                .weightedData(dangerList)
                 .radius(50)
-                .gradient(gradient)
+                .gradient(dangerGradient)
+                .build();
+        HeatmapTileProvider mProviderSafe = new HeatmapTileProvider.Builder()
+                .weightedData(safeList)
+                .radius(50)
+                .gradient(safeGradient)
                 .build();
         // Add a tile overlay to the map, using the heat map tile provider.
-        mOverlay = mMap.addTileOverlay(new TileOverlayOptions().tileProvider(mProvider));
+        mOverlayDanger = mMap.addTileOverlay(new TileOverlayOptions().tileProvider(mProvider));
+        mOverlaySafe = mMap.addTileOverlay(new TileOverlayOptions().tileProvider(mProviderSafe));
 
 //        ArrayList<LatLng> highDanger = new ArrayList<>();
 //        highDanger.add(new LatLng(37.879602, -122.273783));
@@ -220,7 +262,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //        for (Circle c : circles) {
 //            c.setVisible(true);
 //        }
-        mOverlay.setVisible(true);
+        mOverlayDanger.setVisible(true);
+        mOverlaySafe.setVisible(true);
         mMap.moveCamera(CameraUpdateFactory.zoomTo(HEATMAP_ZOOM));
     }
 
@@ -228,7 +271,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //        for (Circle c : circles) {
 //            c.setVisible(false);
 //        }
-        mOverlay.setVisible(false);
+        mOverlaySafe.setVisible(false);
+        mOverlayDanger.setVisible(false);
         for (Marker m : markers) {
             m.setVisible(true);
         }
