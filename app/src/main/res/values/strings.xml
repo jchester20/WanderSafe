@@ -110,4 +110,20 @@
     <string name="adorable_neighborhood_with_lots_of_cute_cafes_and_boutiques_can_feel_slightly_unsafe_at_night_due_to_a_lack_of_great_street_lighting">Adorable neighborhood with lots of cute cafes and boutiques. Can feel slightly unsafe at night due to a lack of great street lighting</string>
     <string name="cece_kim">Cece Kim</string>
     <string name="sep_2019">Sep 2019</string>
+    <string name="title_activity_city_summary">CitySummaryActivity</string>
+    <string name="crime_density">Crime Density</string>
+    <string name="overall_acessibility">Overall Acessibility</string>
+    <string name="todo">TODO</string>
+    <string name="smol_star">smol star</string>
+    <string name="berkeley">Berkeley</string>
+    <string name="cragmont">Cragmont</string>
+    <string name="berkeley_hills">Berkeley Hills</string>
+    <string name="kensington">Kensington</string>
+    <string name="safest_neighborhoods">Safest Neighborhoods</string>
+    <string name="downtown_berkeley">Downtown Berkeley</string>
+    <string name="most_walkable_neighborhoods">Most Walkable Neighborhoods</string>
+    <string name="purple_rectangle">purple rectangle</string>
+    <string name="southside">Southside</string>
+    <string name="north_berkeley">North Berkeley</string>
+    <string name="rockridge">Rockridge</string>
 </resources>
