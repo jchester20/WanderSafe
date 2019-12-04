@@ -22,9 +22,8 @@
         android:layout_height="398dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.912">
+        app:layout_constraintTop_toBottomOf="@id/button"
+        app:layout_constraintStart_toStartOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/linearLayout"
@@ -207,12 +206,12 @@
         android:id="@+id/imageView"
         android:layout_width="350dp"
         android:layout_height="181dp"
-        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.513"
+        app:layout_constraintHorizontal_bias="0.524"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.68"
+        app:layout_constraintTop_toBottomOf="@+id/Neighborhood_name"
+        app:layout_constraintVertical_bias="0.019"
         app:srcCompat="@drawable/rounded_rectangle" />
 
     <Button
@@ -224,12 +223,12 @@
         android:text="@string/locals"
         android:textAllCaps="false"
         android:textColor="#E0DBDB"
-        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.113"
+        app:layout_constraintHorizontal_bias="0.093"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.75" />
+        app:layout_constraintVertical_bias="0.03" />
 
     <Button
         android:id="@+id/button2"
@@ -240,12 +239,12 @@
         android:text="@string/visitors"
         android:textAllCaps="false"
         android:textColor="#E0DBDB"
-        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.358"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.03"
+        app:layout_constraintStart_toEndOf="@+id/button"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.736" />
+        app:layout_constraintVertical_bias="0.03" />
 
     <TextView
         android:id="@+id/Neighborhood_name"
@@ -255,12 +254,12 @@
         android:text="@string/elmwood"
         android:textColor="@color/colorLightGrey"
         android:textSize="22sp"
-        app:layout_constraintBottom_toTopOf="@+id/imageView"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.106"
+        app:layout_constraintHorizontal_bias="0.112"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/include2"
-        app:layout_constraintVertical_bias="0.775" />
+        app:layout_constraintVertical_bias="0.068" />
 
     <TextView
         android:id="@+id/Overall_Safety"
@@ -360,23 +359,23 @@
         android:text="@string/plus_sign"
         android:textColor="@color/colorLightGrey"
         android:textSize="17sp"
-        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.937"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/include2"
-        app:layout_constraintVertical_bias="0.976" />
+        app:layout_constraintHorizontal_bias="0.853"
+        app:layout_constraintStart_toEndOf="@+id/button2"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintVertical_bias="0.03" />
 
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="76dp"
         android:layout_height="30dp"
-        app:layout_constraintBottom_toTopOf="@+id/imageView"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.845"
+        app:layout_constraintHorizontal_bias="0.835"
         app:layout_constraintStart_toEndOf="@+id/Neighborhood_name"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.806"
+        app:layout_constraintVertical_bias="0.084"
         app:srcCompat="@drawable/big_three_stars" />
 
     <ImageView
