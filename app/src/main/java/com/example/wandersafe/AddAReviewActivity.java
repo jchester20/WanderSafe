@@ -27,7 +27,7 @@ public class AddAReviewActivity extends AppCompatActivity {
         close_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent newIntent = new Intent(AddAReviewActivity.this, ReviewActivity.class);
+                Intent newIntent = new Intent(AddAReviewActivity.this, MapsActivity.class);
                 AddAReviewActivity.this.startActivity(newIntent);
             }
         });
