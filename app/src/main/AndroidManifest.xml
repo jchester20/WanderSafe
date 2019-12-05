@@ -21,8 +21,16 @@
             android:label="@string/title_activity_add_areview"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
+            android:name=".AddAReviewBerkActivity"
+            android:label="AddAReviewBerkActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
             android:name=".CitySummaryActivity"
             android:label="@string/title_activity_city_summary"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".NeighborhoodReviewActivity"
+            android:label="NeighborhoodReviewActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ReviewActivity"

@@ -23,7 +23,6 @@ public class AddAReviewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_areview);
-
         close_btn = findViewById(R.id.close);
         close_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -32,7 +31,6 @@ public class AddAReviewActivity extends AppCompatActivity {
                 AddAReviewActivity.this.startActivity(newIntent);
             }
         });
-
     }
 
 }

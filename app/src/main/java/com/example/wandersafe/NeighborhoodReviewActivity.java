@@ -2,9 +2,6 @@ package com.example.wandersafe;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -12,19 +9,18 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
-public class ReviewActivity extends AppCompatActivity {
-
+public class NeighborhoodReviewActivity extends AppCompatActivity {
     private Button add_Review;
-    private TextView close_btn;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_review_berkeley);
+        setContentView(R.layout.activity_review);
         LinearLayout linLayout = findViewById(R.id.ReviewContainer);
         LayoutInflater inflater = getLayoutInflater();
         BufferedReader reader = new BufferedReader(new InputStreamReader(getResources().openRawResource(R.raw.user_reviews_csv)));
@@ -52,8 +48,7 @@ public class ReviewActivity extends AppCompatActivity {
                 }
                 linLayout.addView(reviewView);
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -61,18 +56,9 @@ public class ReviewActivity extends AppCompatActivity {
         add_Review.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent newIntent = new Intent(ReviewActivity.this, AddAReviewBerkActivity.class);
-                ReviewActivity.this.startActivity(newIntent);
-            }
-        });
-        close_btn = findViewById(R.id.close);
-        close_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent newIntent = new Intent(ReviewActivity.this, MapsActivity.class);
-                ReviewActivity.this.startActivity(newIntent);
+                Intent newIntent = new Intent(NeighborhoodReviewActivity.this, AddAReviewActivity.class);
+                NeighborhoodReviewActivity.this.startActivity(newIntent);
             }
         });
     }
-
 }
