@@ -487,7 +487,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
-        android:id="@+id/button11"
+        android:id="@+id/post_button1"
         android:layout_width="79dp"
         android:layout_height="28dp"
         android:layout_marginBottom="16dp"
