@@ -26,7 +26,7 @@ public class CitySummaryActivity extends AppCompatActivity {
         elmwood_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent newIntent = new Intent(CitySummaryActivity.this, ReviewActivity.class);
+                Intent newIntent = new Intent(CitySummaryActivity.this, NeighborhoodReviewActivity.class);
                 CitySummaryActivity.this.startActivity(newIntent);
             }
         });
