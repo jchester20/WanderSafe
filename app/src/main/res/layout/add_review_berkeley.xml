@@ -9,6 +9,23 @@
     tools:context=".AddAReviewActivity">
 
 
+    <TextView
+        android:id="@+id/close4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/x"
+        android:textColor="@color/colorLightGrey"
+        android:textSize="24sp"
+        android:textStyle="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.035"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.005" />
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="350dp"
@@ -378,7 +395,8 @@
         android:ems="10"
         android:fontFamily="@font/montserrat"
         android:inputType="textPersonName"
-        android:text="@string/name"
+        android:hint="@string/name"
+        android:textColorHint="@color/colorDarkGrey"
         android:textColor="@color/colorDarkGrey"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -428,7 +446,8 @@
         android:fontFamily="@font/montserrat"
         android:gravity="start|top"
         android:inputType="textMultiLine"
-        android:text="@string/tell_us_more_about_your_experience_here"
+        android:hint="@string/tell_us_more_about_your_experience_here"
+        android:textColorHint="@color/colorDarkGrey"
         android:textColor="@color/colorDarkGrey"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView4"
@@ -458,7 +477,8 @@
         android:inputType="textPostalAddress"
         android:backgroundTint="@color/colorPurpleAccent"
         android:fontFamily="@font/montserrat"
-        android:text="@string/address"
+        android:hint="@string/address"
+        android:textColorHint="@color/colorDarkGrey"
         android:textColor="@color/colorDarkGrey"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

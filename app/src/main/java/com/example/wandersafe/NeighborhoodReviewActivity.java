@@ -16,6 +16,7 @@ import java.io.InputStreamReader;
 
 public class NeighborhoodReviewActivity extends AppCompatActivity {
     private Button add_Review;
+    private TextView close_btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +58,15 @@ public class NeighborhoodReviewActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent newIntent = new Intent(NeighborhoodReviewActivity.this, AddAReviewActivity.class);
+                NeighborhoodReviewActivity.this.startActivity(newIntent);
+            }
+        });
+
+        close_btn = findViewById(R.id.close);
+        close_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent newIntent = new Intent(NeighborhoodReviewActivity.this, MapsActivity.class);
                 NeighborhoodReviewActivity.this.startActivity(newIntent);
             }
         });

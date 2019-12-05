@@ -65,7 +65,7 @@ public class ReviewActivity extends AppCompatActivity {
                 ReviewActivity.this.startActivity(newIntent);
             }
         });
-        close_btn = findViewById(R.id.close);
+        close_btn = findViewById(R.id.close2);
         close_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
