@@ -60,7 +60,7 @@ public class ReviewActivity extends AppCompatActivity {
         add_Review.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent newIntent = new Intent(ReviewActivity.this, AddAReviewActivity.class);
+                Intent newIntent = new Intent(ReviewActivity.this, AddAReviewBerkActivity.class);
                 ReviewActivity.this.startActivity(newIntent);
             }
         });

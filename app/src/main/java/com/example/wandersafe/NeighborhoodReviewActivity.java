@@ -1,8 +1,10 @@
 package com.example.wandersafe;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -13,6 +15,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 public class NeighborhoodReviewActivity extends AppCompatActivity {
+    private Button add_Review;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,5 +51,14 @@ public class NeighborhoodReviewActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        add_Review = findViewById(R.id.add_button);
+        add_Review.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent newIntent = new Intent(NeighborhoodReviewActivity.this, AddAReviewActivity.class);
+                NeighborhoodReviewActivity.this.startActivity(newIntent);
+            }
+        });
     }
 }
