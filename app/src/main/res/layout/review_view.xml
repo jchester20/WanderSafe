@@ -6,12 +6,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:paddingBottom="10dp">
+    android:paddingBottom="5dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/Header"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingBottom="3dp">
 
         <ImageView
             android:id="@+id/UserImg"
@@ -50,7 +51,8 @@
         android:id="@+id/Stars"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingBottom="3dp">
 
         <ImageView
             android:id="@+id/S1"
@@ -96,7 +98,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/Body"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingBottom="5dp">
 
         <TextView
             android:id="@+id/BodyText"
@@ -108,6 +111,14 @@
             android:textSize="13sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/separator4"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:visibility="visible" />
 
 </LinearLayout>
