@@ -17,16 +17,20 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".AddAReviewActivity"
+            android:label="@string/title_activity_add_areview"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
             android:name=".CitySummaryActivity"
             android:label="@string/title_activity_city_summary"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ReviewActivity"
             android:label="@string/title_activity_review"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".MapController"
-            android:label="@string/title_activity_maps"></activity>
+            android:label="@string/title_activity_maps" />
         <activity
             android:name=".SearchActivity"
             android:theme="@style/Theme.Design.NoActionBar" />
