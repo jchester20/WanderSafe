@@ -1,26 +1,24 @@
 package com.example.wandersafe;
 
+import android.content.Intent;
 import android.os.Bundle;
 
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.maps.android.heatmaps.WeightedLatLng;
-
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.zip.Inflater;
 
 public class ReviewActivity extends AppCompatActivity {
+
+    private Button add_Review;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +55,15 @@ public class ReviewActivity extends AppCompatActivity {
         catch (Exception e) {
             e.printStackTrace();
         }
+
+        add_Review = findViewById(R.id.add_button);
+        add_Review.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent newIntent = new Intent(ReviewActivity.this, AddAReviewActivity.class);
+                ReviewActivity.this.startActivity(newIntent);
+            }
+        });
     }
 
 }
