@@ -127,4 +127,6 @@
     <string name="north_berkeley">North Berkeley</string>
     <string name="rockridge">Rockridge</string>
     <string name="title_activity_add_areview">AddAReviewActivity</string>
+    <string name="name">Name</string>
+    <string name="visitor">Visitor</string>
 </resources>
