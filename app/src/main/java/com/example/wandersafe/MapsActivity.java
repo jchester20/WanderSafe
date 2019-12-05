@@ -428,7 +428,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 String lng = loc.getString("longitude");
                 Marker toAdd = mMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(lat), Double.parseDouble(lng)))
                         .title(crime)
-                        .snippet("Date: " + date.substring(0, 9)));
+                        .snippet("Date: " + date.substring(0, 10)));
                 toAdd.setVisible(false);
                 markers.add(toAdd);
             } catch (JSONException e) {
