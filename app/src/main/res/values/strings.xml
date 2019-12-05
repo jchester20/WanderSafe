@@ -129,4 +129,8 @@
     <string name="title_activity_add_areview">AddAReviewActivity</string>
     <string name="name">Name</string>
     <string name="visitor">Visitor</string>
+    <string name="local">Local</string>
+    <string name="tell_us_more_about_your_experience_here">Tell us more about your experience here</string>
+    <string name="address">Address</string>
+    <string name="post">Post</string>
 </resources>
