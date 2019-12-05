@@ -64,9 +64,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import de.siegmar.fastcsv.reader.CsvContainer;
-import de.siegmar.fastcsv.reader.CsvReader;
-import de.siegmar.fastcsv.reader.CsvRow;
 
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
@@ -162,11 +159,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             while ((csvLine = reader.readLine()) != null) {
                 String[] row = csvLine.split(",");
                 int weight = Integer.parseInt(row[3]);
-                if (weight == 1) {
+                if (weight == 1 || weight == 2) {
                     dangerList.add(new WeightedLatLng(
                             new LatLng(Double.parseDouble(row[4]), Double.parseDouble(row[5])),
                             1));
-                } else {
+                } else if (weight == 4 || weight == 5){
                     safeList.add(new WeightedLatLng(
                             new LatLng(Double.parseDouble(row[4]), Double.parseDouble(row[5])),
                             1));
