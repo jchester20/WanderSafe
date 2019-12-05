@@ -11,6 +11,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -18,6 +19,7 @@ import org.w3c.dom.Text;
 public class AddAReviewActivity extends AppCompatActivity {
 
     private TextView close_btn;
+    private Button post_btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +30,15 @@ public class AddAReviewActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent newIntent = new Intent(AddAReviewActivity.this, MapsActivity.class);
+                AddAReviewActivity.this.startActivity(newIntent);
+            }
+        });
+
+        post_btn = findViewById(R.id.post_button1);
+        post_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent newIntent = new Intent(AddAReviewActivity.this, NeighborhoodReviewActivity.class);
                 AddAReviewActivity.this.startActivity(newIntent);
             }
         });
