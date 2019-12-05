@@ -56,6 +56,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.DataInput;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -420,10 +421,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         for(int i = 0; i < Math.min(50, api_call_response.length()); i++) {
             try {
                 JSONObject currLoc = api_call_response.getJSONObject(i);
+                String crime = currLoc.getString("offense");
+                String date = currLoc.getString("eventdt");
                 JSONObject loc = currLoc.getJSONObject("block_location");
                 String lat = loc.getString("latitude");
                 String lng = loc.getString("longitude");
-                Marker toAdd = mMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(lat), Double.parseDouble(lng))));
+                Marker toAdd = mMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(lat), Double.parseDouble(lng)))
+                        .title(crime)
+                        .snippet("Date: " + date.substring(0, 9)));
                 toAdd.setVisible(false);
                 markers.add(toAdd);
             } catch (JSONException e) {
