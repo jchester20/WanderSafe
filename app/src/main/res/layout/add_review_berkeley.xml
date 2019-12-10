@@ -116,6 +116,7 @@
         app:layout_constraintVertical_bias="0.927" />
 
     <LinearLayout
+        android:id="@+id/stargroup1"
         android:layout_width="108dp"
         android:layout_height="20dp"
         android:orientation="horizontal"
@@ -127,7 +128,7 @@
         app:layout_constraintVertical_bias="0.155">
 
         <ImageView
-            android:id="@+id/smallstar2"
+            android:id="@+id/smallstar1"
             android:layout_width="20dp"
             android:layout_height="14dp"
             android:layout_margin="0dp"
@@ -141,7 +142,7 @@
             app:srcCompat="@drawable/white_star" />
 
         <ImageView
-            android:id="@+id/smallstar3"
+            android:id="@+id/smallstar2"
             android:layout_width="20dp"
             android:layout_height="14dp"
             android:layout_margin="0dp"
@@ -156,7 +157,7 @@
             app:srcCompat="@drawable/white_star" />
 
         <ImageView
-            android:id="@+id/smallstar17"
+            android:id="@+id/smallstar3"
             android:layout_width="20dp"
             android:layout_height="14dp"
             android:layout_margin="0dp"
@@ -171,7 +172,7 @@
             app:srcCompat="@drawable/white_star" />
 
         <ImageView
-            android:id="@+id/smallstar5"
+            android:id="@+id/smallstar4"
             android:layout_width="20dp"
             android:layout_height="14dp"
             android:layout_margin="0dp"
@@ -186,7 +187,7 @@
             app:srcCompat="@drawable/white_star" />
 
         <ImageView
-            android:id="@+id/smallstar16"
+            android:id="@+id/smallstar5"
             android:layout_width="20dp"
             android:layout_height="14dp"
             android:layout_margin="0dp"
@@ -204,6 +205,7 @@
 
 
     <LinearLayout
+        android:id="@+id/stargroup2"
         android:layout_width="108dp"
         android:layout_height="20dp"
         android:orientation="horizontal"
@@ -215,7 +217,7 @@
         app:layout_constraintVertical_bias="0.403">
 
         <ImageView
-            android:id="@+id/smallstar8"
+            android:id="@+id/smallstar6"
             android:layout_width="20dp"
             android:layout_height="14dp"
             android:layout_margin="0dp"
@@ -229,7 +231,7 @@
             app:srcCompat="@drawable/white_star" />
 
         <ImageView
-            android:id="@+id/smallstar9"
+            android:id="@+id/smallstar7"
             android:layout_width="20dp"
             android:layout_height="14dp"
             android:layout_margin="0dp"
@@ -244,7 +246,7 @@
             app:srcCompat="@drawable/white_star" />
 
         <ImageView
-            android:id="@+id/smallstar4"
+            android:id="@+id/smallstar8"
             android:layout_width="20dp"
             android:layout_height="14dp"
             android:layout_margin="0dp"
@@ -259,7 +261,7 @@
             app:srcCompat="@drawable/white_star" />
 
         <ImageView
-            android:id="@+id/smallstar18"
+            android:id="@+id/smallstar9"
             android:layout_width="20dp"
             android:layout_height="14dp"
             android:layout_margin="0dp"
@@ -274,7 +276,7 @@
             app:srcCompat="@drawable/white_star" />
 
         <ImageView
-            android:id="@+id/smallstar7"
+            android:id="@+id/smallstar10"
             android:layout_width="20dp"
             android:layout_height="14dp"
             android:layout_margin="0dp"
@@ -291,6 +293,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/stargroup3"
         android:layout_width="108dp"
         android:layout_height="20dp"
         android:orientation="horizontal"
@@ -318,7 +321,7 @@
             app:srcCompat="@drawable/white_star" />
 
         <ImageView
-            android:id="@+id/smallstar19"
+            android:id="@+id/smallstar12"
             android:layout_width="20dp"
             android:layout_height="14dp"
             android:layout_margin="0dp"
@@ -333,7 +336,7 @@
             app:srcCompat="@drawable/white_star" />
 
         <ImageView
-            android:id="@+id/smallstar20"
+            android:id="@+id/smallstar13"
             android:layout_width="20dp"
             android:layout_height="14dp"
             android:layout_margin="0dp"
@@ -348,7 +351,7 @@
             app:srcCompat="@drawable/white_star" />
 
         <ImageView
-            android:id="@+id/smallstar10"
+            android:id="@+id/smallstar14"
             android:layout_width="20dp"
             android:layout_height="14dp"
             android:layout_margin="0dp"
@@ -381,6 +384,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/stargroup4"
         android:layout_width="108dp"
         android:layout_height="20dp"
         android:orientation="horizontal"
@@ -392,7 +396,7 @@
         app:layout_constraintVertical_bias="0.913">
 
         <ImageView
-            android:id="@+id/smallstar12"
+            android:id="@+id/smallstar16"
             android:layout_width="20dp"
             android:layout_height="14dp"
             android:layout_margin="0dp"
@@ -407,7 +411,7 @@
             app:srcCompat="@drawable/white_star" />
 
         <ImageView
-            android:id="@+id/smallstar13"
+            android:id="@+id/smallstar17"
             android:layout_width="20dp"
             android:layout_height="14dp"
             android:layout_margin="0dp"
@@ -422,7 +426,7 @@
             app:srcCompat="@drawable/white_star" />
 
         <ImageView
-            android:id="@+id/smallstar14"
+            android:id="@+id/smallstar18"
             android:layout_width="20dp"
             android:layout_height="14dp"
             android:layout_margin="0dp"
@@ -437,7 +441,7 @@
             app:srcCompat="@drawable/white_star" />
 
         <ImageView
-            android:id="@+id/smallstar21"
+            android:id="@+id/smallstar19"
             android:layout_width="20dp"
             android:layout_height="14dp"
             android:layout_margin="0dp"
@@ -452,7 +456,7 @@
             app:srcCompat="@drawable/white_star" />
 
         <ImageView
-            android:id="@+id/smallstar22"
+            android:id="@+id/smallstar20"
             android:layout_width="20dp"
             android:layout_height="14dp"
             android:layout_margin="0dp"
