@@ -1,1 +1,3 @@
 # WanderSafe
+
+WanderSafe is a mobile app that aims to assist young travelers safely navigate their travel experiences in new and unfamiliar cities. Young travelers have begun to prefer authentic travel experiences over more tourist centric ones. A central part of such experiences, is living amongst locals/ like-minded travelers and navigating the city as a local would. Travelers, however, do not have the same knowledge that locals do about what areas are safe to stay in and explore. This is the knowledge gap that WanderSafe aims to bridge. It uses a combination of local/visitor reviews and ratings and city crime data to help travelers make more informed decisions.
