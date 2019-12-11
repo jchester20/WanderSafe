@@ -36,6 +36,7 @@
                 android:layout_width="341dp"
                 android:layout_height="47dp"
                 android:background="@drawable/search_btn_bground"
+                android:fontFamily="@font/montserrat"
                 android:paddingLeft="14dp"
                 android:text="@string/searchBtn"
                 android:textAlignment="textStart"

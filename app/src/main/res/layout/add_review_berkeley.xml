@@ -465,7 +465,6 @@
             app:layout_constraintBottom_toBottomOf="@+id/imageView"
             app:layout_constraintEnd_toEndOf="@+id/imageView"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/smallstar21"
             app:layout_constraintTop_toTopOf="@+id/imageView"
             app:layout_constraintVertical_bias="0.886"
             app:srcCompat="@drawable/white_star" />
@@ -481,8 +480,8 @@
         android:fontFamily="@font/montserrat"
         android:inputType="textPersonName"
         android:hint="@string/name"
+        android:textColor="@color/colorWhite"
         android:textColorHint="@color/colorDarkGrey"
-        android:textColor="@color/colorDarkGrey"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.488"
@@ -524,23 +523,23 @@
 
     <EditText
         android:id="@+id/editText3"
-        android:layout_width="339dp"
-        android:layout_height="46dp"
+        android:layout_width="347dp"
+        android:layout_height="245dp"
         android:backgroundTint="@color/colorDarkBlueBackground"
         android:ems="10"
         android:fontFamily="@font/montserrat"
         android:gravity="start|top"
-        android:inputType="textMultiLine"
         android:hint="@string/tell_us_more_about_your_experience_here"
+        android:inputType="textMultiLine"
+        android:textColor="@color/colorWhite"
         android:textColorHint="@color/colorDarkGrey"
-        android:textColor="@color/colorDarkGrey"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView4"
         app:layout_constraintEnd_toEndOf="@+id/imageView4"
-        app:layout_constraintHorizontal_bias="0.714"
+        app:layout_constraintHorizontal_bias="0.666"
         app:layout_constraintStart_toStartOf="@+id/imageView4"
         app:layout_constraintTop_toTopOf="@+id/imageView4"
-        app:layout_constraintVertical_bias="0.048" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <ImageView
         android:id="@+id/imageView4"
@@ -563,7 +562,7 @@
         android:fontFamily="@font/montserrat"
         android:hint="@string/address"
         android:inputType="textPostalAddress"
-        android:textColor="@color/colorDarkGrey"
+        android:textColor="@color/colorWhite"
         android:textColorHint="@color/colorDarkGrey"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

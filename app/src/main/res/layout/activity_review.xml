@@ -234,10 +234,10 @@
         android:layout_marginEnd="76dp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
-        app:layout_constraintHorizontal_bias="0.971"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/Overall_Safety"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.098"
+        app:layout_constraintVertical_bias="0.095"
         app:srcCompat="@drawable/green_star" />
 
     <ImageView
@@ -261,7 +261,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/smallstar2"
+        app:layout_constraintStart_toEndOf="@+id/smallstar8"
         app:layout_constraintTop_toTopOf="@+id/imageView"
         app:layout_constraintVertical_bias="0.099"
         app:srcCompat="@drawable/green_star" />
@@ -363,12 +363,6 @@
 
         <ImageView
             android:id="@+id/smallstar7"
-            android:layout_width="20dp"
-            android:layout_height="14dp"
-            app:srcCompat="@drawable/yellow_star" />
-
-        <ImageView
-            android:id="@+id/smallstar8"
             android:layout_width="20dp"
             android:layout_height="14dp"
             app:srcCompat="@drawable/yellow_star" />
