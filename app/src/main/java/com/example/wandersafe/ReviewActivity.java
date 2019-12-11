@@ -14,6 +14,9 @@ import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 public class ReviewActivity extends AppCompatActivity {
 
@@ -27,6 +30,33 @@ public class ReviewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_review_berkeley);
         LinearLayout linLayout = findViewById(R.id.ReviewContainer);
         LayoutInflater inflater = getLayoutInflater();
+        //get sent review
+        Intent intent = getIntent();
+        String[] incoming = intent.getStringArrayExtra("Review");
+        if (incoming != null) {
+            View reviewView = inflater.inflate(R.layout.review_view, null);
+            TextView date = reviewView.findViewById(R.id.DateText);
+            DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+            Date date2 = new Date();
+            date.setText(dateFormat.format(date2));
+            TextView name = reviewView.findViewById(R.id.NameText);
+            name.setText(incoming[0]);
+            TextView review = reviewView.findViewById(R.id.BodyText);
+            review.setText(incoming[1]);
+            ImageView[] starArray = {
+                    reviewView.findViewById(R.id.S1),
+                    reviewView.findViewById(R.id.S2),
+                    reviewView.findViewById(R.id.S3),
+                    reviewView.findViewById(R.id.S4),
+                    reviewView.findViewById(R.id.S5)
+            };
+            int stars = Integer.parseInt(incoming[2]);
+            for (int i = 0; i < stars; i++) {
+                starArray[i].setVisibility(View.VISIBLE);
+            }
+            linLayout.addView(reviewView);
+        }
+
         BufferedReader reader = new BufferedReader(new InputStreamReader(getResources().openRawResource(R.raw.user_reviews_csv)));
         try {
             String csvLine;
